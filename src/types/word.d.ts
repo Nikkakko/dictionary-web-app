@@ -26,7 +26,7 @@ type sourceUrls = {
 export interface Word {
   word: string;
   phonetic: string;
-  sourceUrls: sourceUrls[];
+  sourceUrls: sourceUrls;
   license: license;
   phonetics: Phonetics[];
   origin: string;

@@ -16,12 +16,14 @@ const MainContent = () => {
   const {
     register,
     handleSubmit,
+    getValues,
 
     formState: { errors },
   } = useForm<Inputs>({
     mode: 'onBlur',
   });
   console.log(word);
+  const { inputValue } = getValues();
 
   const onSubmit: SubmitHandler<Inputs> = async data => {
     try {
@@ -46,8 +48,7 @@ const MainContent = () => {
         onSubmit={handleSubmit(onSubmit)}
       />
 
-      {/* Preview Component */}
-      <WordPreview word={word} />
+      {inputValue && <WordPreview word={word} />}
     </Container>
   );
 };
