@@ -1,19 +1,36 @@
 import styled from 'styled-components';
 import InputField from './InputField';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { getWord } from '../services/fetchData';
+import { setWord } from '../features/dictionarySlice';
+import WordPreview from './WordPreview';
 
 type Inputs = {
   inputValue: string;
 };
 
 const MainContent = () => {
+  const { word } = useAppSelector(state => state.dictionary);
+  const dispatch = useAppDispatch();
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = data => console.log(data);
+    formState: { errors },
+  } = useForm<Inputs>({
+    mode: 'onBlur',
+  });
+  console.log(word);
+
+  const onSubmit: SubmitHandler<Inputs> = async data => {
+    try {
+      const response = await getWord(data.inputValue);
+      dispatch(setWord(response));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Container>
@@ -30,6 +47,7 @@ const MainContent = () => {
       />
 
       {/* Preview Component */}
+      <WordPreview word={word} />
     </Container>
   );
 };
