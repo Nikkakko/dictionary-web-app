@@ -1,18 +1,16 @@
 import ArrowDown from '../svgs/ArrowDown';
-import { useState } from 'react';
 import Logo from '../svgs/Logo';
 import styled from 'styled-components';
 import MoonIcon from '../svgs/MoonIcon';
 import Switch from 'react-switch';
-import { useAppDispatch } from '../app/hooks';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { toggleTheme } from '../features/themeSlice';
 
 const Header = () => {
   const dispatch = useAppDispatch();
-  const [isChecked, setIsChecked] = useState(false);
+  const { isDarkMode } = useAppSelector(state => state.theme);
 
   const handleThemeChange = () => {
-    setIsChecked(!isChecked);
     dispatch(toggleTheme());
   };
   return (
@@ -27,7 +25,7 @@ const Header = () => {
         <SelectTheme>
           {/* Switch Button */}
           <Switch
-            checked={isChecked}
+            checked={isDarkMode}
             onChange={() => {
               handleThemeChange();
             }}
@@ -40,7 +38,7 @@ const Header = () => {
             handleDiameter={14}
             height={20}
           />
-          <MoonIcon stroke={isChecked ? '#A445ED' : '#757575'} />
+          <MoonIcon stroke={isDarkMode ? '#A445ED' : '#757575'} />
         </SelectTheme>
       </RightWrapper>
     </Container>
@@ -49,7 +47,9 @@ const Header = () => {
 
 const Container = styled.div`
   width: 100%;
+  height: 32px;
   display: flex;
+  align-items: center;
   justify-content: space-between;
 `;
 
