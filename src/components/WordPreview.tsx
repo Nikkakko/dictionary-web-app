@@ -17,15 +17,14 @@ const WordPreview: FC<WordPreviewProps> = ({ word }) => {
 
   const findAudio = () => {
     //find audio that is not empty string
-    const audio = word?.phonetics.find(phonetic => phonetic.audio !== '');
+    const audio = word?.phonetics?.find(phonetic => phonetic.audio !== '');
     return audio?.audio;
   };
 
   const findPhonetic = () => {
-    const phonetic = word?.phonetics.find(
+    const phonetic = word?.phonetics?.find(
       phonetic => phonetic.text !== '' && phonetic.text !== undefined
     );
-
     return phonetic?.text;
   };
 

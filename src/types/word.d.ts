@@ -10,9 +10,14 @@ type Definition = {
   antonyms?: string[];
 };
 
-type Meaning = {
+type synonyms = string[];
+type antonyms = string[];
+
+export type Meaning = {
   partOfSpeech: string;
   definitions: Definition[];
+  synonyms?: synonyms;
+  antonyms?: antonyms;
 };
 
 type license = {

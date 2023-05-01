@@ -3,10 +3,12 @@ import { Word } from '../types/word';
 
 export interface DictionaryState {
   word: Word;
+  isLoading: boolean;
 }
 
 const initialState: DictionaryState = {
   word: {} as Word,
+  isLoading: false,
 };
 
 export const dictionarySlice = createSlice({
@@ -16,9 +18,13 @@ export const dictionarySlice = createSlice({
     setWord: (state, action: PayloadAction<Word>) => {
       state.word = action.payload;
     },
+
+    setIsLoading: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload;
+    },
   },
 });
 
-export const { setWord } = dictionarySlice.actions;
+export const { setWord, setIsLoading } = dictionarySlice.actions;
 
 export default dictionarySlice.reducer;

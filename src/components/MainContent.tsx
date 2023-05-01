@@ -5,6 +5,10 @@ import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { getWord } from '../services/fetchData';
 import { setWord } from '../features/dictionarySlice';
 import WordPreview from './WordPreview';
+import { useState } from 'react';
+import Loader from './Loader';
+import Noun from './Noun';
+import { Meaning } from '../types/word';
 
 type Inputs = {
   inputValue: string;
@@ -13,22 +17,29 @@ type Inputs = {
 const MainContent = () => {
   const { word } = useAppSelector(state => state.dictionary);
   const dispatch = useAppDispatch();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const noun = word?.meanings.find(
+    (item: Meaning) => item.partOfSpeech === 'noun'
+  );
+  const verb = word?.meanings.find(
+    (item: Meaning) => item.partOfSpeech === 'verb'
+  );
+
   const {
     register,
     handleSubmit,
-    getValues,
 
     formState: { errors },
   } = useForm<Inputs>({
     mode: 'onBlur',
   });
-  console.log(word);
-  const { inputValue } = getValues();
 
   const onSubmit: SubmitHandler<Inputs> = async data => {
     try {
+      setIsLoading(true);
       const response = await getWord(data.inputValue);
       dispatch(setWord(response));
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -48,7 +59,13 @@ const MainContent = () => {
         onSubmit={handleSubmit(onSubmit)}
       />
 
-      {inputValue && <WordPreview word={word} />}
+      {isLoading && <Loader />}
+
+      {word && Object.keys(word).length > 0 && !isLoading && (
+        <WordPreview word={word} />
+      )}
+
+      <Noun item={noun} />
     </Container>
   );
 };
