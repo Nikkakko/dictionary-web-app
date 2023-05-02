@@ -7,8 +7,9 @@ import { setWord } from '../features/dictionarySlice';
 import WordPreview from './WordPreview';
 import { useState } from 'react';
 import Loader from './Loader';
-import Noun from './Noun';
+import Meanings from './Meanings';
 import { Meaning } from '../types/word';
+import { NotFound } from '.';
 
 type Inputs = {
   inputValue: string;
@@ -18,12 +19,7 @@ const MainContent = () => {
   const { word } = useAppSelector(state => state.dictionary);
   const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const noun = word?.meanings.find(
-    (item: Meaning) => item.partOfSpeech === 'noun'
-  );
-  const verb = word?.meanings.find(
-    (item: Meaning) => item.partOfSpeech === 'verb'
-  );
+  const [isNotFound, setIsNotFound] = useState<boolean>(false);
 
   const {
     register,
@@ -40,7 +36,10 @@ const MainContent = () => {
       const response = await getWord(data.inputValue);
       dispatch(setWord(response));
       setIsLoading(false);
+      setIsNotFound(false);
     } catch (error) {
+      setIsLoading(false);
+      setIsNotFound(true);
       console.log(error);
     }
   };
@@ -61,11 +60,15 @@ const MainContent = () => {
 
       {isLoading && <Loader />}
 
+      {isNotFound && <NotFound />}
+
       {word && Object.keys(word).length > 0 && !isLoading && (
         <WordPreview word={word} />
       )}
 
-      <Noun item={noun} />
+      {word.meanings?.map((meaning: Meaning, index: number) => (
+        <Meanings key={index} item={meaning} />
+      ))}
     </Container>
   );
 };
