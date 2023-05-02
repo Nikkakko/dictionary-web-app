@@ -7,7 +7,6 @@ interface NounProps {
 }
 
 const Meanings: FC<NounProps> = ({ item }) => {
-  console.log(item);
   return (
     <Container>
       <Heading>
@@ -75,6 +74,7 @@ const Title = styled.h2`
   font-size: 18px;
   line-height: 22px;
   font-weight: 700;
+  font-style: italic;
 `;
 
 const Line = styled.div`
@@ -145,6 +145,11 @@ const SynonymItem = styled.span`
   /* A445ED */
 
   color: #a445ed;
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
 `;
 
 const ExampleDef = styled(ListItem)`

@@ -66,9 +66,10 @@ const Text = styled.div`
 `;
 
 const WordTitle = styled.h1`
+  font-style: normal;
+  font-weight: 700;
   font-size: 32px;
   line-height: 39px;
-  font-weight: 700;
   color: ${({ theme }) => theme.text};
 `;
 

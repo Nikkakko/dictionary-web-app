@@ -1,6 +1,7 @@
 import { FC, forwardRef } from 'react';
 import styled from 'styled-components';
 import SearchIcon from '../svgs/SearchIcon';
+import { useAppSelector } from '../app/hooks';
 
 interface InputFieldProps {
   error?: string;
@@ -13,10 +14,19 @@ const InputField: FC<InputFieldProps> = forwardRef<
   HTMLInputElement,
   InputFieldProps
 >(({ label, error, onSubmit, ...rest }, ref) => {
+  const { font } = useAppSelector(state => state.font);
   return (
     <FormGroup onSubmit={onSubmit}>
       {label && <Label>{label}</Label>}
-      <Input type='text' ref={ref} {...rest} error={error} />
+      <Input
+        type='text'
+        ref={ref}
+        {...rest}
+        error={error}
+        style={{
+          fontFamily: font,
+        }}
+      />
       {error && <Error>{error}</Error>}
       <Search>
         <SearchIcon onClick={onSubmit} />
@@ -40,7 +50,11 @@ const Input = styled.input<{
   border: ${({ error }) => (error ? '1px solid #FF5252' : 'none')};
   background: #f4f4f4;
   color: ${({ theme }) => theme.text};
+
+  font-style: normal;
+  font-weight: 700;
   font-size: 16px;
+  line-height: 19px;
 
   &:focus {
     outline: none;
@@ -49,6 +63,8 @@ const Input = styled.input<{
   &:active {
     border: 1px solid #a445ed;
   }
+
+  cursor: pointer;
 `;
 
 const Label = styled.label``;

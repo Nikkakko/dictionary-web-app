@@ -7,15 +7,17 @@ const Footer = () => {
 
   return (
     <Container>
-      <Wrapper>
-        <a href={word?.sourceUrls?.[0]} target='_blank'>
-          Source
-        </a>
-        <Source>
-          <span>{word.sourceUrls?.[0]}</span>
-          <NewWindow />
-        </Source>
-      </Wrapper>
+      {word.word && (
+        <Wrapper>
+          <a href={word?.sourceUrls?.[0]} target='_blank'>
+            Source
+          </a>
+          <Source>
+            <span>{word.sourceUrls?.[0]}</span>
+            <NewWindow />
+          </Source>
+        </Wrapper>
+      )}
     </Container>
   );
 };
