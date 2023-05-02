@@ -10,6 +10,7 @@ import Loader from './Loader';
 import Meanings from './Meanings';
 import { Meaning } from '../types/word';
 import { NotFound } from '.';
+import { device } from '../styles/mediaQueries';
 
 type Inputs = {
   inputValue: string;
@@ -79,6 +80,10 @@ const Container = styled.div`
   flex: 1;
   width: 100%;
   margin-top: 24px;
+
+  @media ${device.tablet} {
+    margin-top: 54px;
+  }
 `;
 
 export default MainContent;

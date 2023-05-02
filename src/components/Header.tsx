@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import ArrowDown from '../svgs/ArrowDown';
 import Logo from '../svgs/Logo';
 import styled from 'styled-components';
@@ -7,12 +7,13 @@ import Switch from 'react-switch';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { toggleTheme } from '../features/themeSlice';
 import { setFont } from '../features/fontSlice';
+import { device } from '../styles/mediaQueries';
 
 const Header = () => {
   const dispatch = useAppDispatch();
   const { isDarkMode } = useAppSelector(state => state.theme);
   const { font } = useAppSelector(state => state.font);
-  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const fontsList = ['Inter', 'Lora', 'Inconsolata'];
 
@@ -20,10 +21,13 @@ const Header = () => {
     dispatch(toggleTheme());
   };
 
-  const handleFontChange = (font: string) => {
-    dispatch(setFont(font));
-    setIsOpen(false);
-  };
+  const handleFontChange = useCallback(
+    (font: string) => {
+      dispatch(setFont(font));
+      setIsOpen(false);
+    },
+    [dispatch, setIsOpen]
+  );
 
   useEffect(() => {
     document.body.style.fontFamily = font || 'sans-serif';
@@ -39,7 +43,7 @@ const Header = () => {
         </SelectFont>
 
         {isOpen && (
-          <FontsWrapper>
+          <FontsWrapper isDarkMode={isDarkMode}>
             {fontsList.map((font, index) => (
               <FontLists key={index}>
                 <ListItem
@@ -107,6 +111,14 @@ const SelectFont = styled.div`
     font-weight: 700;
     font-style: normal;
   }
+
+  @media ${device.tablet} {
+    gap: 18px;
+    span {
+      font-size: 18px;
+      line-height: 24px;
+    }
+  }
 `;
 
 const Line = styled.div`
@@ -121,9 +133,14 @@ const SelectTheme = styled.div`
   gap: 12px;
 `;
 
-const FontsWrapper = styled.div`
-  background: #ffffff;
-  box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.1);
+const FontsWrapper = styled.div<{
+  isDarkMode: boolean;
+}>`
+  background: ${({ theme }) => theme.popUpBG};
+
+  box-shadow: ${({ isDarkMode }) =>
+    isDarkMode ? '0px 5px 30px #a445ed' : '0px 5px 30px rgba(0, 0, 0, 0.1)'};
+
   border-radius: 16px;
   padding: 16px 32px 16px 16px;
 

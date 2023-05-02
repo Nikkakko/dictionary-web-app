@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { Meaning } from '../types/word';
 import styled from 'styled-components';
+import { device } from '../styles/mediaQueries';
 
 interface NounProps {
   item: Meaning | undefined;
@@ -61,6 +62,10 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 32px;
+
+  @media ${device.tablet} {
+    margin-top: 40px;
+  }
 `;
 
 const Heading = styled.div`
@@ -75,6 +80,11 @@ const Title = styled.h2`
   line-height: 22px;
   font-weight: 700;
   font-style: italic;
+
+  @media ${device.tablet} {
+    font-size: 24px;
+    line-height: 29px;
+  }
 `;
 
 const Line = styled.div`
@@ -97,13 +107,25 @@ const SubTitle = styled.h3`
 
   /* 757575 */
   color: #757575;
+
+  @media ${device.tablet} {
+    font-size: 20px;
+    line-height: 24px;
+  }
 `;
 
 const List = styled.div`
   display: flex;
-  /* align-items: flex-start; */
-  margin-top: 13px;
   gap: 20px;
+  &:first-of-type {
+    margin-top: 15px;
+  }
+
+  @media ${device.tablet} {
+    &:first-of-type {
+      margin-top: 25px;
+    }
+  }
 `;
 
 const Dot = styled.div`
@@ -123,11 +145,19 @@ const ListItem = styled.span`
   flex: 1;
 
   /* list-style: none; */
+
+  @media ${device.tablet} {
+    font-size: 18px;
+    line-height: 24px;
+
+    max-width: 100%;
+  }
 `;
 
 const Synonyms = styled.div`
   margin-top: 16px;
   display: flex;
+  align-items: center;
   gap: 24px;
 `;
 
@@ -149,6 +179,11 @@ const SynonymItem = styled.span`
   &:hover {
     cursor: pointer;
     text-decoration: underline;
+  }
+
+  @media ${device.tablet} {
+    font-size: 20px;
+    line-height: 24px;
   }
 `;
 

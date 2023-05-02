@@ -3,6 +3,7 @@ import { Word } from '../types/word';
 import styled from 'styled-components';
 import PlayIcon from '../svgs/PlayIcon';
 import { useRef } from 'react';
+import { device } from '../styles/mediaQueries';
 
 interface WordPreviewProps {
   word: Word;
@@ -57,6 +58,10 @@ const Container = styled.div`
   align-items: center;
   width: 100%;
   margin-top: 24px;
+
+  @media ${device.tablet} {
+    margin-top: 43px;
+  }
 `;
 
 const Text = styled.div`
@@ -71,6 +76,11 @@ const WordTitle = styled.h1`
   font-size: 32px;
   line-height: 39px;
   color: ${({ theme }) => theme.text};
+
+  @media ${device.tablet} {
+    font-size: 64px;
+    line-height: 77px;
+  }
 `;
 
 const Phonetic = styled.p`
@@ -78,6 +88,11 @@ const Phonetic = styled.p`
   font-size: 18px;
   line-height: 24px;
   font-weight: 400;
+
+  @media ${device.tablet} {
+    font-size: 24px;
+    line-height: 29px;
+  }
 `;
 
 const Player = styled.div`
@@ -89,6 +104,11 @@ const Player = styled.div`
   height: 48px;
 
   cursor: pointer;
+
+  @media ${device.tablet} {
+    width: 75px;
+    height: 75px;
+  }
 `;
 
 export default WordPreview;

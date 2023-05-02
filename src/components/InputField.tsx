@@ -2,6 +2,7 @@ import { FC, forwardRef } from 'react';
 import styled from 'styled-components';
 import SearchIcon from '../svgs/SearchIcon';
 import { useAppSelector } from '../app/hooks';
+import { device } from '../styles/mediaQueries';
 
 interface InputFieldProps {
   error?: string;
@@ -48,7 +49,7 @@ const Input = styled.input<{
   padding: 14px 24px 16.45px 24px;
   border-radius: 16px;
   border: ${({ error }) => (error ? '1px solid #FF5252' : 'none')};
-  background: #f4f4f4;
+  background: ${({ theme }) => theme.inputBG};
   color: ${({ theme }) => theme.text};
 
   font-style: normal;
@@ -65,6 +66,11 @@ const Input = styled.input<{
   }
 
   cursor: pointer;
+
+  @media ${device.tablet} {
+    font-size: 20px;
+    line-height: 24px;
+  }
 `;
 
 const Label = styled.label``;

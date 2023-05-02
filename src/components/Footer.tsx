@@ -1,6 +1,7 @@
 import { useAppSelector } from '../app/hooks';
 import styled from 'styled-components';
 import NewWindow from '../svgs/newWindow';
+import { device } from '../styles/mediaQueries';
 
 const Footer = () => {
   const { word } = useAppSelector(state => state.dictionary);
@@ -9,9 +10,7 @@ const Footer = () => {
     <Container>
       {word.word && (
         <Wrapper>
-          <a href={word?.sourceUrls?.[0]} target='_blank'>
-            Source
-          </a>
+          <p>Source</p>
           <Source>
             <span>{word.sourceUrls?.[0]}</span>
             <NewWindow />
@@ -28,6 +27,10 @@ const Container = styled.div`
   margin-top: 12px;
 
   border-top: 1px solid #e9e9e9;
+
+  @media ${device.tablet} {
+    margin-top: 24px;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -37,7 +40,7 @@ const Wrapper = styled.div`
 
   gap: 8px;
 
-  a {
+  p {
     font-weight: 400;
     font-size: 14px;
     line-height: 17px;
@@ -61,8 +64,11 @@ const Wrapper = styled.div`
     cursor: pointer;
 
     /* 2D2D2D */
+  }
 
-    color: #2d2d2d;
+  @media ${device.tablet} {
+    flex-direction: row;
+    gap: 20px;
   }
 `;
 

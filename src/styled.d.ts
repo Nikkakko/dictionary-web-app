@@ -7,5 +7,7 @@ declare module 'styled-components' {
     error: string;
     logoBorder: string;
     background: string;
+    inputBG: string;
+    popUpBG: string;
   }
 }
