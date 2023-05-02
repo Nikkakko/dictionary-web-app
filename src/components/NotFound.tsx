@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import styled from 'styled-components';
 import { device } from '../styles/mediaQueries';
 

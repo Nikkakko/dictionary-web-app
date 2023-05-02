@@ -8,15 +8,15 @@ const Footer = () => {
 
   return (
     <Container>
-      {word.word && (
-        <Wrapper>
-          <p>Source</p>
-          <Source>
-            <span>{word.sourceUrls?.[0]}</span>
-            <NewWindow />
-          </Source>
-        </Wrapper>
-      )}
+      <Wrapper>
+        <p>Source</p>
+        <Source>
+          <a href={word.sourceUrls?.[0]} target='_blank'>
+            {word.sourceUrls?.[0]}
+          </a>
+          <NewWindow />
+        </Source>
+      </Wrapper>
     </Container>
   );
 };
@@ -54,16 +54,18 @@ const Wrapper = styled.div`
     color: #757575;
   }
 
-  span {
+  a {
     font-weight: 400;
     font-size: 14px;
     line-height: 17px;
     /* identical to box height */
-
+    color: ${({ theme }) => theme.text};
     text-decoration-line: underline;
+
     cursor: pointer;
 
     /* 2D2D2D */
+    /* color: #2d2d2d; */
   }
 
   @media ${device.tablet} {

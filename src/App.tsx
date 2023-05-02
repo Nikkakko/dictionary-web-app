@@ -1,13 +1,16 @@
 import styled from 'styled-components';
 import { Footer, Header, MainContent } from './components';
 import { device } from './styles/mediaQueries';
+import { useAppSelector } from './app/hooks';
 
 const App = () => {
+  const { word } = useAppSelector(state => state.dictionary);
+
   return (
     <Container>
       <Header />
       <MainContent />
-      <Footer />
+      {word.word && <Footer />}
     </Container>
   );
 };
