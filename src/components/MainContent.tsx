@@ -8,7 +8,7 @@ import WordPreview from './WordPreview';
 import { useState } from 'react';
 import Loader from './Loader';
 import Meanings from './Meanings';
-import { Meaning } from '../types/word';
+import { Meaning, Word } from '../types/word';
 import { NotFound } from '.';
 import { device } from '../styles/mediaQueries';
 
@@ -25,6 +25,7 @@ const MainContent = () => {
   const {
     register,
     handleSubmit,
+    reset,
 
     formState: { errors },
   } = useForm<Inputs>({
@@ -41,6 +42,8 @@ const MainContent = () => {
     } catch (error) {
       setIsLoading(false);
       setIsNotFound(true);
+      dispatch(setWord({} as Word));
+      reset();
       console.log(error);
     }
   };
