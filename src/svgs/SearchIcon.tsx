@@ -25,6 +25,8 @@ const SearchIcon = ({ onClick }: SearchIconProps) => {
   );
 };
 
-const Svg = styled.svg``;
+const Svg = styled.svg`
+  cursor: pointer;
+`;
 
 export default SearchIcon;
